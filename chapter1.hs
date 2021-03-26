@@ -18,13 +18,13 @@ prime0 n
   | n == 1 = False
   | otherwise = ld n == n
 
--- minumum int of a list
+-- minimum int of a list
 mnmInt :: [Int] -> Int
--- if recieves an empty list throw error
+-- if receives an empty list throw error
 mnmInt [] = error "empty list"
--- if recieves a list with one item return item
+-- if receives a list with one item return item
 mnmInt [x] = x
--- if recieves a list get the min of the first elem and the min of the rest of the list
+-- if receives a list get the min of the first elem and the min of the rest of the list
 mnmInt (x : xs) = min x (mnmInt xs)
 
 -- * exc 1.9
@@ -44,3 +44,26 @@ removeFst (x : xs) n
 --   this removes the penultimate element of a lsit
 --   | length xs == 1 && head xs /= n = xs
   | otherwise = x : removeFst xs n
+
+-- * exp 1.11
+srtInts :: [Int]->[Int]
+srtInts [] = []
+-- m is the minum int of xs list
+-- removes first intance of m in xs
+-- this new list is the argument of a recursive call
+srtInts xs = m : srtInts (removeFst xs m) where m = mnmInt xs
+
+-- * exp 1.12
+average :: [Int] -> Float
+average [] = error "need a valid float list"
+average xs = a / b
+  where a = fromIntegral (sum xs)
+        b = fromIntegral (length xs)
+
+-- * exc 1.13
+-- TODO Write a function count for counting the number of occurrences of a character in a string.
+count :: Char -> String -> Int 
+count c [] = 0
+count c (x:xs)
+  | c == x = 1 + count c xs
+  | otherwise = count c xs
